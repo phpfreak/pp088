@@ -133,7 +133,11 @@ $(function(){
     });
     $(".filtered").each(function () { $(this).show() });
     $("#filter-count").text(count + ' <?php echo lang('shown/lc'); ?>' );
-  });
+  }).keydown(function(event) {
+    if (event.which == 13) {  // disable enter key on search filter to prevent leaving page
+      event.preventDefault();
+    }  
+  })
 });
 
 $(function(){
@@ -143,5 +147,11 @@ $(function(){
     style     : 'inherit' 
   });
 });
+
+function stopRKey(evt) { 
+  var evt = (evt) ? evt : ((event) ? event : null); 
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+} 
 //]]>
 </script>

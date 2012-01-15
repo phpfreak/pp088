@@ -15,6 +15,7 @@
 <?php add_javascript_to_page('jquery-ui.min.js') ?>
 <?php add_javascript_to_page('jquery.colorbox-min.js') ?>
 <?php add_javascript_to_page('jquery.imgareaselect.dev.js') ?>
+<?php add_javascript_to_page('jquery.jeditable.mini.js') ?>
 <?php echo render_page_head() ?>
 </head>
   <body id="body">
@@ -62,21 +63,6 @@
 
       <!-- content wrapper -->
       <div id="outerContentWrapper">
-<?php if (is_array(page_actions())) { ?>
-          <div id="page_actionsWrapper">
-           <div id="page_actionsBlock">
-            <div id="page_actions">
-              <ul>
-<?php foreach (page_actions() as $page_action) { ?>
-                <li><a href="<?php echo $page_action->getURL() ?>"><?php echo clean($page_action->getTitle()) ?></a></li>
-<?php } // foreach ?>
-              </ul>
-            </div>
-           </div>
-          </div>
-<?php } else { // if ?>
-        <div style="height:1px"></div>
-<?php } // if ?>
         <div id="innerContentWrapper">
 <?php if (!is_null(flash_get('success'))) { ?>
           <div id="success"><?php echo clean(flash_get('success')) ?></div>
@@ -85,7 +71,7 @@
           <div id="error"><?php echo clean(flash_get('error')) ?></div>
 <?php } ?>
  <div style="clear:both"></div>
-          <h1 id="pageTitle"><?php echo get_page_title() ?></h1>
+          <div id="pageHeader"><span id="pageTitle"><?php echo get_page_title() ?></span><?php include('pageoptions.php'); ?></div>
           <div id="pageContent">
             <div id="content">
               <!-- Content -->

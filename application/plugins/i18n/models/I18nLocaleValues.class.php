@@ -24,6 +24,30 @@
       trace(__FILE__,'getLocaleValues():end');
     } // getLocaleValues
 
+    /**
+    * Return locale value
+    *
+    * @param integer $id Locale id
+    * @param string $name Locale value name
+    * @return I18nLocaleValue
+    */
+    function getLocaleValue($id, $name) {
+      trace(__FILE__,"getLocaleValue($id, $name):begin");
+      
+      $conditions = array('`locale_id` = ? and `name` = ?', $id, $name);
+      
+      return self::findOne(array(
+        'conditions' => $conditions,
+      )); // findOne
+      trace(__FILE__,"getLocaleValue($id, $name):end");
+    } // getLocaleValue
+
+    /**
+    * Return categories
+    *
+    * @param string $locale Locale key
+    * @return I18nLocaleValue
+    */
     function getCategories($locale) {
       trace(__FILE__,'getCategories():begin');
       
@@ -90,7 +114,12 @@
     * @param  boolean  $replace Replace all values
     * @return boolean
     */
-    function import($id, $locale) {
+    function import($id, $locale, $replace = false) {
+      if ($replace) {
+        $table = $this->getTableName(true);
+        $sql = "DELETE FROM $table WHERE `locale_id` = $id";
+        DB::execute($sql);
+      }
       i18n_load(ROOT.'/language', $locale, $id);
       i18n_load(ROOT.'/application/plugins', $locale, $id);
     }

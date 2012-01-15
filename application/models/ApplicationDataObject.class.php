@@ -97,7 +97,9 @@
       trace(__FILE__,'getCreatedBy()');
       if (is_null($this->created_by)) {
         if ($this->columnExists('created_by_id')) {
-          $this->created_by = Users::findById($this->getCreatedById());
+          if ($this->getCreatedById()>0) {
+            $this->created_by = Users::findById($this->getCreatedById());
+          }
         }
       } // 
       return $this->created_by;
@@ -140,7 +142,9 @@
     function getUpdatedBy() {
       if (is_null($this->updated_by)) {
         if ($this->columnExists('updated_by_id')) {
-          $this->updated_by = Users::findById($this->getUpdatedById());
+          if ($this->getUpdatedById()>0) {
+            $this->updated_by = Users::findById($this->getUpdatedById());
+          }
         }
       } // 
       return $this->updated_by;
@@ -168,6 +172,16 @@
       $updated_by = $this->getUpdatedBy();
       return $updated_by instanceof User ? $updated_by->getCardUrl() : null;
     } // getUpdatedByCardUrl
+
+    /**
+    * Return object path (location of the object)
+    *
+    * @param void
+    * @return string
+    */
+    function getObjectPath() {
+      return array();
+    } // getObjectPath
 
     /**
     * Delete specific object and associated objects

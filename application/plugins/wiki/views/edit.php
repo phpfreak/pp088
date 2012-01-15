@@ -32,7 +32,10 @@ trace(__FILE__,'begin');
 </div>
 <div id="wiki-field-content">
 <?php echo label_tag(lang('wiki page content'), 'wikiFormContent', true) ?>
-<?php echo textarea_field('wiki[content]', $revision->getContent(), array('cols' => 400, 'class' => 'shot', 'id' => 'wikiFormContent')) ?>
+<?php echo textarea_field('wiki[content]', $data['content'], array('cols' => 132, 'class' => 'shot', 'id' => 'wikiFormContent')) ?>
+<?php echo submit_button(lang('preview'), 'p', array( 'name' => 'wiki[preview]') ) ?>
+<?php echo label_tag(lang('preview'), 'wikiFormPreview', false) ?>
+<div class="preview"><?php echo do_textile(plugin_manager()->apply_filters('wiki_text', $data['preview_content'])); ?></div>
 </div>
 <div id="wiki-field-log">
 <?php 
@@ -45,6 +48,7 @@ trace(__FILE__,'begin');
     echo text_field('wiki[tags]', $tags, array('class' => 'long', 'id' => 'wikiFormTags'));
   }
 ?>
+</div>
 <div id="wiki-options">
 <?php 
   echo label_tag(lang('wiki set as index page'), 'wikiFormIndexYes');
